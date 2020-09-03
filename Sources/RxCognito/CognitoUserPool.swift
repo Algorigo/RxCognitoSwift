@@ -23,6 +23,13 @@ class CognitoUserPool {
         var srpUserId: String
     }
     
+    struct RefreshTokenResponse {
+        var idToken: String
+        var acessToken: String
+        var expiresIn: Int
+        var tokenType: String
+    }
+    
     fileprivate static let N = BigNum(hex:
         "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E08" +
         "8A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B" +
@@ -43,6 +50,8 @@ class CognitoUserPool {
 
     fileprivate static let INFO_BITS = "43616c646572612044657269766564204b657901"
     
+    let userDefaults = UserDefaults.init(suiteName: "Cognito")
+    
     let accessKeyId: String
     let secretAccessKey: String
     let regions: Regions
@@ -50,6 +59,9 @@ class CognitoUserPool {
     let appClientId: String
     let appClientSecret: String
     let identityProvider: CognitoIdentityProvider
+    var csiLastUserKey: String {
+        return "CognitoIdentityProvider." + appClientId + ".LastAuthUser"
+    }
     
     init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
         self.accessKeyId = accessKeyId
@@ -60,6 +72,14 @@ class CognitoUserPool {
         self.appClientSecret = appClientSecret
         
         self.identityProvider = CognitoIdentityProvider.init(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, sessionToken: nil, region: regions.getRegion(), endpoint: nil, middlewares: [], eventLoopGroupProvider: AWSClient.EventLoopGroupProvider.useAWSClientShared)
+    }
+    
+    func currentUser() -> CognitoUser? {
+        let userId = userDefaults?.string(forKey: csiLastUserKey)
+        if let userId = userId {
+            return CognitoUser(userPool: self, userId: userId)
+        }
+        return nil
     }
     
     func initiateAuth(userId: String) -> EventLoopFuture<InitiateAuthResponse> {
@@ -92,14 +112,15 @@ class CognitoUserPool {
             let challengeResponses = ["TIMESTAMP": dateTimeString, "USERNAME": userId, "PASSWORD_CLAIM_SECRET_BLOCK": response.secretBlock, "PASSWORD_CLAIM_SIGNATURE": signatureString, "SECRET_HASH": secretHash]
             
             return identityProvider.respondToAuthChallenge(CognitoIdentityProvider.RespondToAuthChallengeRequest.init(analyticsMetadata: nil, challengeName: response.challengeName, challengeResponses: challengeResponses, clientId: appClientId, clientMetadata: nil, session: nil, userContextData: nil))
-                .map { (response) -> (CognitoUser?) in
+                .map { [weak self] (response) -> (CognitoUser?) in
 //                    print("respondToAuthChallenge:\(response)")
-                    if let idToken = response.authenticationResult?.idToken,
+                    if let userPool = self,
+                        let idToken = response.authenticationResult?.idToken,
                         let accessToken = response.authenticationResult?.accessToken,
                         let refreshToken = response.authenticationResult?.refreshToken,
                         let expiresIn = response.authenticationResult?.expiresIn {
                         
-                        return CognitoUser(idToken: idToken, accessToken: accessToken, refreshToken: refreshToken, expiresIn: Double(expiresIn))
+                        return CognitoUser(userPool: userPool, userId: userId, idToken: idToken, accessToken: accessToken, refreshToken: refreshToken, expiresIn: Double(expiresIn))
                     } else {
                         return nil
                     }
@@ -157,6 +178,25 @@ class CognitoUserPool {
      
         let signatureData = message.uInt8ArrayWithHex()!.hmac(key: key.uInt8ArrayWithHex()!)
         return signatureData.base64EncodedString()
+    }
+    
+    func refreshSession(uesr: CognitoUser) -> EventLoopFuture<RefreshTokenResponse?> {
+        var authParameters = [String : String]()
+        authParameters["REFRESH_TOKEN"] = uesr.refreshToken
+        authParameters["SECRET_HASH"] = appClientSecret
+    
+        let authRequest = CognitoIdentityProvider.InitiateAuthRequest(analyticsMetadata: nil, authFlow: .refreshToken, authParameters: authParameters, clientId: appClientId, clientMetadata: nil, userContextData: nil)
+        return identityProvider.initiateAuth(authRequest)
+            .map { (response) -> (RefreshTokenResponse?) in
+                if let idToken = response.authenticationResult?.idToken,
+                    let accessToken = response.authenticationResult?.accessToken,
+                    let expiresIn = response.authenticationResult?.expiresIn,
+                    let tokenType = response.authenticationResult?.tokenType {
+                    return RefreshTokenResponse(idToken: idToken, acessToken: accessToken, expiresIn: expiresIn, tokenType: tokenType)
+                } else {
+                    return nil
+                }
+            }
     }
 }
 

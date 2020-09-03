@@ -59,10 +59,11 @@ class ViewController: UIViewController {
             defaults.set(appClientId, forKey: "AppClientId")
             defaults.set(appClientSecret, forKey: "AppClientSecret")
             
-            if let loginVC = self.storyboard?.instantiateViewController(identifier: "LoginVC") {
+            if let nextVC = self.storyboard?.instantiateViewController(identifier: "TestVC") {
             
-                loginVC.modalTransitionStyle = .coverVertical
-                self.present(loginVC, animated: true, completion: nil)
+                nextVC.modalTransitionStyle = .coverVertical
+                nextVC.modalPresentationStyle = .fullScreen
+                self.present(nextVC, animated: true, completion: nil)
             }
         } else {
             let alertController = UIAlertController(title: title, message: "Not Enough Information", preferredStyle: UIAlertController.Style.alert)

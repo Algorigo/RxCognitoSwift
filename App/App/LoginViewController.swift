@@ -20,6 +20,8 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        idTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     @IBAction func handleLoginBtn() {
@@ -27,11 +29,10 @@ class LoginViewController: UIViewController {
             let password = passwordTextField.text {
             _ = RxCognito.instance.login(userId: userId, password: password)
                 .observeOn(MainScheduler.instance)
-                .subscribe { [weak self](event) in
+                .subscribe { [weak self] (event) in
                     switch (event) {
-                    case .completed:
-                        print("completed")
-                        self?.resultTextView.text = "\(RxCognito.instance.currentUser)"
+                    case .success(let cognitoUser):
+                        self?.resultTextView.text = "\(cognitoUser)"
                     case .error(let error):
                         print("error:\(error)")
                     }
@@ -49,4 +50,18 @@ class LoginViewController: UIViewController {
     }
     */
 
+}
+
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        if let nextResponder = textField.superview?.viewWithTag(nextTag) {
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return false
+    }
 }

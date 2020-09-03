@@ -22,7 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		EE3AB29024FCCFBD00886D42 /* CognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB28F24FCCFBD00886D42 /* CognitoIdentityProvider */; };
-		EE3AB29224FCD3F100886D42 /* Cognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB29124FCD3F100886D42 /* Cognito.swift */; };
+		EE3AB29224FCD3F100886D42 /* CognitoUserPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB29124FCD3F100886D42 /* CognitoUserPool.swift */; };
 		EE3AB29524FCD51A00886D42 /* BigNum in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB29424FCD51A00886D42 /* BigNum */; };
 		EE3AB29824FCDA3800886D42 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB29724FCDA3800886D42 /* RxRelay */; };
 		EE3AB29A24FCDA3800886D42 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB29924FCDA3800886D42 /* RxSwift */; };
@@ -36,6 +36,7 @@
 		EE3AB2AB24FDCB9700886D42 /* JwtTokenExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AA24FDCB9700886D42 /* JwtTokenExt.swift */; };
 		EE3AB2AD24FDEB6500886D42 /* NIO2RxExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */; };
 		EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AE24FDF74A00886D42 /* Regions.swift */; };
+		EE6202C125010BF300E4C433 /* RxExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C025010BF300E4C433 /* RxExt.swift */; };
 		OBJ_22 /* RxCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* RxCognito.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_40 /* RxCognitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* RxCognitoTests.swift */; };
@@ -61,7 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EE3AB29124FCD3F100886D42 /* Cognito.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cognito.swift; sourceTree = "<group>"; };
+		EE3AB29124FCD3F100886D42 /* CognitoUserPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitoUserPool.swift; sourceTree = "<group>"; };
 		EE3AB29E24FCDE3D00886D42 /* CryptoExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoExt.swift; sourceTree = "<group>"; };
 		EE3AB2A024FCE5C500886D42 /* CognitoError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitoError.swift; sourceTree = "<group>"; };
 		EE3AB2A224FCEE6D00886D42 /* DateFormatExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatExt.swift; sourceTree = "<group>"; };
@@ -71,6 +72,7 @@
 		EE3AB2AA24FDCB9700886D42 /* JwtTokenExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JwtTokenExt.swift; sourceTree = "<group>"; };
 		EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIO2RxExt.swift; sourceTree = "<group>"; };
 		EE3AB2AE24FDF74A00886D42 /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
+		EE6202C025010BF300E4C433 /* RxExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExt.swift; sourceTree = "<group>"; };
 		OBJ_12 /* RxCognitoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCognitoTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				EE3AB2A624FCF2DF00886D42 /* TypeConvertExt.swift */,
 				EE3AB2AA24FDCB9700886D42 /* JwtTokenExt.swift */,
 				EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */,
+				EE6202C025010BF300E4C433 /* RxExt.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -143,7 +146,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -151,7 +154,6 @@
 				OBJ_10 /* Tests */,
 				OBJ_14 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -167,7 +169,7 @@
 			children = (
 				EE3AB29D24FCDE1700886D42 /* Util */,
 				OBJ_9 /* RxCognito.swift */,
-				EE3AB29124FCD3F100886D42 /* Cognito.swift */,
+				EE3AB29124FCD3F100886D42 /* CognitoUserPool.swift */,
 				EE3AB2A024FCE5C500886D42 /* CognitoError.swift */,
 				EE3AB2A824FDC6F900886D42 /* CognitoUser.swift */,
 				EE3AB2AE24FDF74A00886D42 /* Regions.swift */,
@@ -249,7 +251,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			packageReferences = (
 				EE3AB28E24FCCFBD00886D42 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
 				EE3AB29324FCD51A00886D42 /* XCRemoteSwiftPackageReference "big-num" */,
@@ -277,12 +279,13 @@
 				EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */,
 				EE3AB29F24FCDE3D00886D42 /* CryptoExt.swift in Sources */,
 				EE3AB2A724FCF2DF00886D42 /* TypeConvertExt.swift in Sources */,
+				EE6202C125010BF300E4C433 /* RxExt.swift in Sources */,
 				OBJ_22 /* RxCognito.swift in Sources */,
 				EE3AB2AB24FDCB9700886D42 /* JwtTokenExt.swift in Sources */,
 				EE3AB2A124FCE5C500886D42 /* CognitoError.swift in Sources */,
 				EE3AB2AD24FDEB6500886D42 /* NIO2RxExt.swift in Sources */,
 				EE3AB2A924FDC6FA00886D42 /* CognitoUser.swift in Sources */,
-				EE3AB29224FCD3F100886D42 /* Cognito.swift in Sources */,
+				EE3AB29224FCD3F100886D42 /* CognitoUserPool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

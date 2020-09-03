@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import CognitoIdentityProvider
 
-public struct CognitoUser {
+public class CognitoUser {
     struct IdToken {
-        let idToken: String
+        let jwtToken: String
         let appClientId: String //aud
         let email: String //email
         let locale: String //locale
@@ -23,26 +24,56 @@ public struct CognitoUser {
         let iss: String //iss
         let tokenUse: String //id
         
-        init(idToken: String) {
-            self.idToken = idToken
-            let jwt = idToken.decodeJwt()
-            print("idToken:\(jwt)")
-            self.appClientId = jwt["aud"] as! String
-            self.email = jwt["email"] as! String
-            self.locale = jwt["locale"] as! String
-            self.emailVerified = jwt["email_verified"] as! Int > 0
-            self.userName = UUID(uuidString: jwt["cognito:username"] as! String)!
-            self.eventId = UUID(uuidString: jwt["event_id"] as! String)!
-            self.sub = UUID(uuidString: jwt["sub"] as! String)!
-            self.authTime = Date(timeIntervalSince1970: Double(jwt["auth_time"] as! Int))
-            self.iat = Date(timeIntervalSince1970: Double(jwt["iat"] as! Int))
-            self.exp = Date(timeIntervalSince1970: Double(jwt["exp"] as! Int))
-            self.iss = jwt["iss"] as! String
-            self.tokenUse = jwt["token_use"] as! String
+        init?(idToken: String?) {
+            if let idToken = idToken {
+                self.jwtToken = idToken
+                let jwt = idToken.decodeJwt()
+                let _appClientId = jwt["aud"] as? String
+                let _email = jwt["email"] as? String
+                let _locale = jwt["locale"] as? String
+                let _emailVerified = jwt["email_verified"] as? Int
+                let _userName = UUID(uuidString: jwt["cognito:username"] as? String ?? "")
+                let _eventId = UUID(uuidString: jwt["event_id"] as? String ?? "")
+                let _sub = UUID(uuidString: jwt["sub"] as? String ?? "")
+                let _authTime = jwt["auth_time"] as? Int
+                let _iat = jwt["iat"] as? Int
+                let _exp = jwt["exp"] as? Int
+                let _iss = jwt["iss"] as? String
+                let _tokenUse = jwt["token_use"] as? String
+                if let _appClientId = _appClientId,
+                    let _email = _email,
+                    let _locale = _locale,
+                    let _emailVerified = _emailVerified,
+                    let _userName = _userName,
+                    let _eventId = _eventId,
+                    let _sub = _sub,
+                    let _authTime = _authTime,
+                    let _iat = _iat,
+                    let _exp = _exp,
+                    let _iss = _iss,
+                    let _tokenUse = _tokenUse {
+                    self.appClientId = _appClientId
+                    self.email = _email
+                    self.locale = _locale
+                    self.emailVerified = _emailVerified > 0
+                    self.userName = _userName
+                    self.eventId = _eventId
+                    self.sub = _sub
+                    self.authTime = Date(timeIntervalSince1970: Double(_authTime))
+                    self.iat = Date(timeIntervalSince1970: Double(_iat))
+                    self.exp = Date(timeIntervalSince1970: Double(_exp))
+                    self.iss = _iss
+                    self.tokenUse = _tokenUse
+                } else {
+                    return nil
+                }
+            } else {
+                return nil
+            }
         }
     }
     struct AccessToken {
-        let accessToken: String
+        let jwtToken: String
         let clientId: String //client_id
         let eventId: UUID //event_id
         let jti: UUID //jti
@@ -55,37 +86,162 @@ public struct CognitoUser {
         let iss: String //iss
         let tokenUse: String //token_use
         
-        init(accessToken: String) {
-            self.accessToken = accessToken
-            let jwt = accessToken.decodeJwt()
-            print("accessToken:\(jwt)")
-            print("client_id:\(type(of: jwt["client_id"]))")
-            self.clientId = jwt["client_id"] as! String
-            self.eventId = UUID(uuidString: jwt["event_id"] as! String)!
-            self.jti = UUID(uuidString: jwt["jti"] as! String)!
-            self.sub = UUID(uuidString: jwt["sub"] as! String)!
-            self.userName = UUID(uuidString: jwt["username"] as! String)!
-            self.authTime = Date(timeIntervalSince1970: Double(jwt["auth_time"] as! Int))
-            self.iat = Date(timeIntervalSince1970: Double(jwt["iat"] as! Int))
-            self.exp = Date(timeIntervalSince1970: Double(jwt["exp"] as! Int))
-            self.scope = jwt["scope"] as! String
-            self.iss = jwt["iss"] as! String
-            self.tokenUse = jwt["token_use"] as! String
+        init?(accessToken: String?) {
+            if let accessToken = accessToken {
+                self.jwtToken = accessToken
+                let jwt = accessToken.decodeJwt()
+                let _clientId = jwt["client_id"] as? String
+                let _eventId = UUID(uuidString: jwt["event_id"] as? String ?? "")
+                let _jti = UUID(uuidString: jwt["jti"] as? String ?? "")
+                let _sub = UUID(uuidString: jwt["sub"] as? String ?? "")
+                let _userName = UUID(uuidString: jwt["username"] as? String ?? "")
+                let _authTime = jwt["auth_time"] as? Int
+                let _iat = jwt["iat"] as? Int
+                let _exp = jwt["exp"] as? Int
+                let _scope = jwt["scope"] as? String
+                let _iss = jwt["iss"] as? String
+                let _tokenUse = jwt["token_use"] as? String
+                if let _clientId = _clientId,
+                    let _eventId = _eventId,
+                    let _jti = _jti,
+                    let _sub = _sub,
+                    let _userName = _userName,
+                    let _authTime = _authTime,
+                    let _iat = _iat,
+                    let _exp = _exp,
+                    let _scope = _scope,
+                    let _iss = _iss,
+                    let _tokenUse = _tokenUse {
+                    self.clientId = _clientId
+                    self.eventId = _eventId
+                    self.jti = _jti
+                    self.sub = _sub
+                    self.userName = _userName
+                    self.authTime = Date(timeIntervalSince1970: Double(_authTime))
+                    self.iat = Date(timeIntervalSince1970: Double(_iat))
+                    self.exp = Date(timeIntervalSince1970: Double(_exp))
+                    self.scope = _scope
+                    self.iss = _iss
+                    self.tokenUse = _tokenUse
+                } else {
+                    return nil
+                }
+            } else {
+                return nil
+            }
         }
     }
-    let idToken: IdToken
-    let accessToken: AccessToken
-    let refreshToken: String
-    let expiresIn: Date
     
-    init(idToken: String, accessToken: String, refreshToken: String, expiresIn: TimeInterval) {
-        self.idToken = IdToken(idToken: idToken)
-        self.accessToken = AccessToken(accessToken: accessToken)
-        self.refreshToken = refreshToken
-        self.expiresIn = Date(timeInterval: expiresIn, since: Date.init())
+    fileprivate static let REFRESH_THRESHOLD = TimeInterval(300.0)
+    
+    fileprivate weak var userPool: CognitoUserPool?
+    public let userId: String
+    var idToken: IdToken
+    var accessToken: AccessToken
+    var refreshToken: String
+    var expiresIn: Date
+    
+    init?(userPool: CognitoUserPool, userId: String, idToken: String, accessToken: String, refreshToken: String, expiresIn: TimeInterval) {
+        let _idToken = IdToken(idToken: idToken)
+        let _accessToken = AccessToken(accessToken: accessToken)
+        if let _idToken = _idToken,
+            let _accessToken = _accessToken {
+            self.userPool = userPool
+            self.userId = userId
+            self.idToken = _idToken
+            self.accessToken = _accessToken
+            self.refreshToken = refreshToken
+            self.expiresIn = Date(timeInterval: expiresIn, since: _idToken.authTime)
+            
+            cacheTokens()
+        } else {
+            return nil
+        }
     }
     
-    func isExpired() -> Bool {
-        return Date().compare(expiresIn) == .orderedDescending
+    init?(userPool: CognitoUserPool, userId: String) {
+        self.userPool = userPool
+        self.userId = userId
+        if let userDefaults = userPool.userDefaults,
+            let _idToken = IdToken(idToken: userDefaults.string(forKey: CognitoUser.csiIdTokenKey(appClientId: userPool.appClientId, userId: userId))),
+            let _accessToken = AccessToken(accessToken: userDefaults.string(forKey: CognitoUser.csiAccessTokenKey(appClientId: userPool.appClientId, userId: userId))),
+            let _refreshToken = userDefaults.string(forKey: CognitoUser.csiRefreshTokenKey(appClientId: userPool.appClientId, userId: userId)) {
+            self.idToken = _idToken
+            self.accessToken = _accessToken
+            self.refreshToken = _refreshToken
+            self.expiresIn = idToken.exp
+        } else {
+            return nil
+        }
     }
+    
+    func setIdToken(idToken: String) throws {
+        if let idToken = IdToken(idToken: idToken) {
+            self.idToken = idToken
+            if let pool = userPool,
+                let userDefaults = pool.userDefaults {
+                // Create keys to look for cached tokens
+                // Store the data in Shared Preferences
+                print("setIdToken:\(idToken)")
+                userDefaults.set(idToken.jwtToken, forKey: CognitoUser.csiIdTokenKey(appClientId: pool.appClientId, userId: userId))
+            }
+        } else {
+            throw CognitoError.NotEnoughResponse
+        }
+    }
+    
+    func setAccessToken(accessToken: String) throws {
+        if let accessToken = AccessToken(accessToken: accessToken) {
+            self.accessToken = accessToken
+            if let pool = userPool,
+                let userDefaults = pool.userDefaults {
+                // Create keys to look for cached tokens
+                // Store the data in Shared Preferences
+                print("setAccessToken:\(accessToken)")
+                userDefaults.set(accessToken.jwtToken, forKey: CognitoUser.csiAccessTokenKey(appClientId: pool.appClientId, userId: userId))
+            }
+        } else {
+            throw CognitoError.NotEnoughResponse
+        }
+    }
+    
+    func setExpiresIn(expiresIn: Int) {
+        self.expiresIn = Date(timeInterval: TimeInterval(expiresIn), since: self.idToken.authTime)
+        print("setExpiresIn:\(self.expiresIn)")
+    }
+    
+    func isValidForThreshold() -> Bool {
+        print("\(Date()) distance to \(expiresIn):\(Date().distance(to: expiresIn)) > \(CognitoUser.REFRESH_THRESHOLD)")
+        return Date().distance(to: expiresIn) > CognitoUser.REFRESH_THRESHOLD
+    }
+    
+    fileprivate func cacheTokens() {
+        if let pool = userPool,
+            let userDefaults = pool.userDefaults {
+            // Create keys to look for cached tokens
+            // Store the data in Shared Preferences
+            userDefaults.set(idToken.jwtToken, forKey: CognitoUser.csiIdTokenKey(appClientId: pool.appClientId, userId: userId))
+            userDefaults.set(accessToken.jwtToken, forKey: CognitoUser.csiAccessTokenKey(appClientId: pool.appClientId, userId: userId))
+            userDefaults.set(refreshToken, forKey: CognitoUser.csiRefreshTokenKey(appClientId: pool.appClientId, userId: userId))
+            userDefaults.set(userId, forKey: pool.csiLastUserKey)
+        }
+    }
+    
+    fileprivate static func csiIdTokenKey(appClientId: String, userId: String) -> String {
+        "CognitoIdentityProvider." + appClientId + "." + userId + ".idToken"
+    }
+    
+    fileprivate static func csiAccessTokenKey(appClientId: String, userId: String) -> String {
+        "CognitoIdentityProvider." + appClientId + "." + userId + ".accessToken"
+    }
+    
+    fileprivate static func csiRefreshTokenKey(appClientId: String, userId: String) -> String {
+        "CognitoIdentityProvider." + appClientId + "." + userId + ".refreshToken"
+    }
+    
+    //TODO 임시 코드 삭제
+    public func toString() -> String {
+        "userId:\(userId)\nidToken.userName:\(idToken.userName)\nexpiresIn:\(expiresIn)\nidToken.authTime:\(idToken.authTime)"
+    }
+    
 }
