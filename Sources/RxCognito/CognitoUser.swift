@@ -175,6 +175,15 @@ public class CognitoUser {
         }
     }
     
+    public func logout() throws {
+        if userPool == nil {
+            throw CognitoError.NotInitializedError
+        }
+        
+        clearCache()
+        userPool = nil
+    }
+    
     func setIdToken(idToken: String) throws {
         if let idToken = IdToken(idToken: idToken) {
             self.idToken = idToken
@@ -223,6 +232,17 @@ public class CognitoUser {
         }
     }
     
+    fileprivate func clearCache() {
+        if let pool = userPool,
+            let userDefaults = pool.userDefaults {
+            // Create keys to look for cached tokens
+            // Store the data in Shared Preferences
+            userDefaults.removeObject(forKey: CognitoUser.csiIdTokenKey(appClientId: pool.appClientId, userId: userId))
+            userDefaults.removeObject(forKey: CognitoUser.csiAccessTokenKey(appClientId: pool.appClientId, userId: userId))
+            userDefaults.removeObject(forKey: CognitoUser.csiRefreshTokenKey(appClientId: pool.appClientId, userId: userId))
+        }
+    }
+    
     fileprivate static func csiIdTokenKey(appClientId: String, userId: String) -> String {
         "CognitoIdentityProvider." + appClientId + "." + userId + ".idToken"
     }
@@ -237,7 +257,7 @@ public class CognitoUser {
     
     //TODO 임시 코드 삭제
     public func toString() -> String {
-        "userId:\(userId)\nidToken.userName:\(idToken.userName)\nexpiresIn:\(expiresIn)\nidToken.authTime:\(idToken.authTime)"
+        "userId:\(userId)\nidToken.userName:\(idToken.userName)\nidToken.authTime:\(idToken.authTime.dateString())\nexpiresIn:\(expiresIn.dateString())"
     }
     
 }

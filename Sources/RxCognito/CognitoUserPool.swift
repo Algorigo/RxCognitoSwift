@@ -10,6 +10,7 @@ import BigNum
 import CryptoKit
 import CognitoIdentityProvider
 import NIO
+import RxSwift
 
 class CognitoUserPool {
 
@@ -74,15 +75,36 @@ class CognitoUserPool {
         self.identityProvider = CognitoIdentityProvider.init(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, sessionToken: nil, region: regions.getRegion(), endpoint: nil, middlewares: [], eventLoopGroupProvider: AWSClient.EventLoopGroupProvider.useAWSClientShared)
     }
     
-    func currentUser() -> CognitoUser? {
-        let userId = userDefaults?.string(forKey: csiLastUserKey)
-        if let userId = userId {
-            return CognitoUser(userPool: self, userId: userId)
+    func getCurrentUser() -> Maybe<CognitoUser> {
+        return Maybe<CognitoUser>.create { [unowned self] (observer) -> Disposable in
+            if let userId = self.userDefaults?.string(forKey: self.csiLastUserKey),
+                let user = CognitoUser.init(userPool: self, userId: userId) {
+                observer(.success(user))
+            } else {
+                observer(.completed)
+            }
+            return Disposables.create()
         }
-        return nil
+        .flatMap({ [unowned self] (cognitoUser) -> Maybe<CognitoUser> in
+            if (cognitoUser.isValidForThreshold()) {
+                return Maybe.just(cognitoUser)
+            } else {
+                return self.refreshSession(uesr: cognitoUser)
+                    .flatMapMaybe({ (response) -> Maybe<CognitoUser> in
+                        if let response = response {
+                            try cognitoUser.setIdToken(idToken: response.idToken)
+                            try cognitoUser.setAccessToken(accessToken: response.acessToken)
+                            cognitoUser.setExpiresIn(expiresIn: response.expiresIn)
+                            return Maybe.just(cognitoUser)
+                        } else {
+                            return Maybe.empty()
+                        }
+                    })
+            }
+        })
     }
     
-    func initiateAuth(userId: String) -> EventLoopFuture<InitiateAuthResponse> {
+    func initiateAuth(userId: String) -> Single<InitiateAuthResponse> {
         let clientAValueNumber = BigNum(bytes: SymmetricKey(size: .bits256))
         let publicAValueNumber = CognitoUserPool.g.power(clientAValueNumber, modulus: CognitoUserPool.N)
         let clientPublicKey = publicAValueNumber.hex
@@ -101,9 +123,10 @@ class CognitoUserPool {
                     return promise.futureResult
                 }
             }
+            .toSingle()
     }
     
-    func respondToAuthChallenge(userId: String, password: String, response: InitiateAuthResponse) -> EventLoopFuture<CognitoUser?> {
+    func respondToAuthChallenge(userId: String, password: String, response: InitiateAuthResponse) -> Single<CognitoUser?> {
         
         let dateTimeString = Date().string()
         let secretHash = (userId+appClientId).hmac(key: appClientSecret)
@@ -112,22 +135,23 @@ class CognitoUserPool {
             let challengeResponses = ["TIMESTAMP": dateTimeString, "USERNAME": userId, "PASSWORD_CLAIM_SECRET_BLOCK": response.secretBlock, "PASSWORD_CLAIM_SIGNATURE": signatureString, "SECRET_HASH": secretHash]
             
             return identityProvider.respondToAuthChallenge(CognitoIdentityProvider.RespondToAuthChallengeRequest.init(analyticsMetadata: nil, challengeName: response.challengeName, challengeResponses: challengeResponses, clientId: appClientId, clientMetadata: nil, session: nil, userContextData: nil))
-                .map { [weak self] (response) -> (CognitoUser?) in
-                    if let userPool = self,
-                        let idToken = response.authenticationResult?.idToken,
+                .map { [unowned self] (response) -> (CognitoUser?) in
+                    if let idToken = response.authenticationResult?.idToken,
                         let accessToken = response.authenticationResult?.accessToken,
                         let refreshToken = response.authenticationResult?.refreshToken,
                         let expiresIn = response.authenticationResult?.expiresIn {
                         
-                        return CognitoUser(userPool: userPool, userId: userId, idToken: idToken, accessToken: accessToken, refreshToken: refreshToken, expiresIn: Double(expiresIn))
+                        return CognitoUser(userPool: self, userId: userId, idToken: idToken, accessToken: accessToken, refreshToken: refreshToken, expiresIn: Double(expiresIn))
                     } else {
                         return nil
                     }
                 }
+                .toSingle()
         } catch {
             let promise = EmbeddedEventLoop.init().makePromise(of: Optional<CognitoUser>.self)
             promise.fail(CognitoError.SignatureCalculationError)
             return promise.futureResult
+                .toSingle()
         }
     }
     
@@ -179,7 +203,7 @@ class CognitoUserPool {
         return signatureData.base64EncodedString()
     }
     
-    func refreshSession(uesr: CognitoUser) -> EventLoopFuture<RefreshTokenResponse?> {
+    fileprivate func refreshSession(uesr: CognitoUser) -> Single<RefreshTokenResponse?> {
         var authParameters = [String : String]()
         authParameters["REFRESH_TOKEN"] = uesr.refreshToken
         authParameters["SECRET_HASH"] = appClientSecret
@@ -196,6 +220,7 @@ class CognitoUserPool {
                     return nil
                 }
             }
+            .toSingle()
     }
 }
 

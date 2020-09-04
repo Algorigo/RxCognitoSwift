@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
                 .subscribe { [weak self] (event) in
                     switch (event) {
                     case .success(let cognitoUser):
-                        self?.resultTextView.text = "\(cognitoUser)"
+                        self?.resultTextView.text = "\(cognitoUser.toString())"
                     case .error(let error):
                         Log.e("LoginViewController", "error:\(error)")
                     }

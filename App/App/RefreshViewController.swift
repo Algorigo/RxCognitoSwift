@@ -20,17 +20,7 @@ class RefreshViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        RxCognito.instance.getCurrentUser()
-            .observeOn(MainScheduler.instance)
-            .subscribe { [weak self] (event) in
-                switch event {
-                case .success(let user):
-                    self?.resultTetView.text = "\(user.toString())"
-                case .error(let error):
-                    Log.e("RefreshViewController", "cognito error:\(error)")
-                }
-            }
-            .disposed(by: disposeBag)
+        refresh()
     }
     
     /*
@@ -43,20 +33,25 @@ class RefreshViewController: UIViewController {
     }
     */
 
-    @IBAction func handleRefresh(_ sender: Any) {
+    fileprivate func refresh() {
         RxCognito.instance.getCurrentUser()
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (event) in
                 switch event {
                 case .success(let user):
-                    self?.resultTetView?.text = "\(user.toString())"
-                    self?.resultTetView?.textColor = UIColor.purple
+                    self?.resultTetView.text = "\(user.toString())"
+                case .completed:
+                    Log.d("RefreshViewController", "complete")
+                    self?.resultTetView.text = "no user"
                 case .error(let error):
-                    self?.resultTetView?.text = "\(error)"
-                    self?.resultTetView?.textColor = UIColor.red
+                    Log.e("RefreshViewController", "cognito error:\(error)")
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    @IBAction func handleRefresh(_ sender: Any) {
+        refresh()
     }
     
 }
