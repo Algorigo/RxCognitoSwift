@@ -11,14 +11,24 @@ import RxSwift
 
 extension EventLoopFuture {
     func toSingle() -> Single<Value> {
-        return Single.create { (observer) -> Disposable in
-            self.whenSuccess { (value) in
-                observer(.success(value))
-            }
-            self.whenFailure { (error) in
-                observer(.error(error))
-            }
-            return Disposables.create()
+        let subject = ReplaySubject<Value>.create(bufferSize: 1)
+        self.whenSuccess { (value) in
+            subject.onNext(value)
+            subject.onCompleted()
         }
+        self.whenFailure { (error) in
+            subject.onError(error)
+        }
+        return subject.firstOrError()
+//        return Single.create { (observer) -> Disposable in
+//            self.whenSuccess { (value) in
+//                observer(.success(value))
+//            }
+//            self.whenFailure { (error) in
+//                observer(.error(error))
+//            }
+//            return Disposables.create()
+//        }
+//        .subscribeOn(ConcurrentDispatchQueueScheduler.init(qos: .background))
     }
 }

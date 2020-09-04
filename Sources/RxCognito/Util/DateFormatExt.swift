@@ -15,4 +15,10 @@ extension Date {
         formatter.dateFormat = "EEE MMM d HH:mm:ss 'UTC' yyyy"
         return formatter.string(from: self)
     }
+    
+    func dateString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyMMdd HHmmss"
+        return formatter.string(from: self)
+    }
 }
