@@ -3,7 +3,7 @@ import RxSwift
 
 public class RxCognito {
 
-    public static let version = "0.0.1"
+    public static let version = "0.0.2"
     
     public static let instance = RxCognito()
     
