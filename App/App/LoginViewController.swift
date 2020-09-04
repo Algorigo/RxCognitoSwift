@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
                     case .success(let cognitoUser):
                         self?.resultTextView.text = "\(cognitoUser)"
                     case .error(let error):
-                        print("error:\(error)")
+                        Log.e("LoginViewController", "error:\(error)")
                     }
                 }
         }

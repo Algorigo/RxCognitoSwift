@@ -32,11 +32,9 @@ public class RxCognito {
                 if (cognitoUser.isValidForThreshold()) {
                     return Single.just(cognitoUser)
                 } else {
-                    print("111 not isValidForThreshold")
                     return self?.userPool?.refreshSession(uesr: cognitoUser)
                         .toSingle()
                         .flatMap({ (response) -> Single<CognitoUser> in
-                            print("222 response \(response)")
                             if let response = response {
                                 try cognitoUser.setIdToken(idToken: response.idToken)
                                 try cognitoUser.setAccessToken(accessToken: response.acessToken)

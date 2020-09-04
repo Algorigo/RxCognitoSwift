@@ -37,6 +37,7 @@
 		EE3AB2AD24FDEB6500886D42 /* NIO2RxExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */; };
 		EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AE24FDF74A00886D42 /* Regions.swift */; };
 		EE6202C125010BF300E4C433 /* RxExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C025010BF300E4C433 /* RxExt.swift */; };
+		EE6202C32501B6E200E4C433 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C22501B6E200E4C433 /* Log.swift */; };
 		OBJ_22 /* RxCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* RxCognito.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_40 /* RxCognitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* RxCognitoTests.swift */; };
@@ -73,6 +74,7 @@
 		EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NIO2RxExt.swift; sourceTree = "<group>"; };
 		EE3AB2AE24FDF74A00886D42 /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
 		EE6202C025010BF300E4C433 /* RxExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExt.swift; sourceTree = "<group>"; };
+		EE6202C22501B6E200E4C433 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		OBJ_12 /* RxCognitoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCognitoTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				EE3AB2AA24FDCB9700886D42 /* JwtTokenExt.swift */,
 				EE3AB2AC24FDEB6500886D42 /* NIO2RxExt.swift */,
 				EE6202C025010BF300E4C433 /* RxExt.swift */,
+				EE6202C22501B6E200E4C433 /* Log.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			files = (
 				EE3AB2A524FCEF2200886D42 /* PaddingBigNumExt.swift in Sources */,
 				EE3AB2A324FCEE6D00886D42 /* DateFormatExt.swift in Sources */,
+				EE6202C32501B6E200E4C433 /* Log.swift in Sources */,
 				EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */,
 				EE3AB29F24FCDE3D00886D42 /* CryptoExt.swift in Sources */,
 				EE3AB2A724FCF2DF00886D42 /* TypeConvertExt.swift in Sources */,

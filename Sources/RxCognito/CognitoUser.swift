@@ -182,7 +182,6 @@ public class CognitoUser {
                 let userDefaults = pool.userDefaults {
                 // Create keys to look for cached tokens
                 // Store the data in Shared Preferences
-                print("setIdToken:\(idToken)")
                 userDefaults.set(idToken.jwtToken, forKey: CognitoUser.csiIdTokenKey(appClientId: pool.appClientId, userId: userId))
             }
         } else {
@@ -197,7 +196,6 @@ public class CognitoUser {
                 let userDefaults = pool.userDefaults {
                 // Create keys to look for cached tokens
                 // Store the data in Shared Preferences
-                print("setAccessToken:\(accessToken)")
                 userDefaults.set(accessToken.jwtToken, forKey: CognitoUser.csiAccessTokenKey(appClientId: pool.appClientId, userId: userId))
             }
         } else {
@@ -207,11 +205,9 @@ public class CognitoUser {
     
     func setExpiresIn(expiresIn: Int) {
         self.expiresIn = Date(timeInterval: TimeInterval(expiresIn), since: self.idToken.authTime)
-        print("setExpiresIn:\(self.expiresIn)")
     }
     
     func isValidForThreshold() -> Bool {
-        print("\(Date()) distance to \(expiresIn):\(Date().distance(to: expiresIn)) > \(CognitoUser.REFRESH_THRESHOLD)")
         return Date().distance(to: expiresIn) > CognitoUser.REFRESH_THRESHOLD
     }
     

@@ -113,7 +113,6 @@ class CognitoUserPool {
             
             return identityProvider.respondToAuthChallenge(CognitoIdentityProvider.RespondToAuthChallengeRequest.init(analyticsMetadata: nil, challengeName: response.challengeName, challengeResponses: challengeResponses, clientId: appClientId, clientMetadata: nil, session: nil, userContextData: nil))
                 .map { [weak self] (response) -> (CognitoUser?) in
-//                    print("respondToAuthChallenge:\(response)")
                     if let userPool = self,
                         let idToken = response.authenticationResult?.idToken,
                         let accessToken = response.authenticationResult?.accessToken,

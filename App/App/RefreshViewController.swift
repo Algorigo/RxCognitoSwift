@@ -27,7 +27,7 @@ class RefreshViewController: UIViewController {
                 case .success(let user):
                     self?.resultTetView.text = "\(user.toString())"
                 case .error(let error):
-                    print("cognito error:\(error)")
+                    Log.e("RefreshViewController", "cognito error:\(error)")
                 }
             }
             .disposed(by: disposeBag)
