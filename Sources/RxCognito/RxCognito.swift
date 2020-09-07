@@ -5,15 +5,9 @@ public class RxCognito {
 
     public static let version = "0.0.3"
     
-    public static let instance = RxCognito()
+    fileprivate let userPool: CognitoUserPool
     
-    fileprivate var userPool: CognitoUserPool? = nil
-    
-    fileprivate init() {
-        userPool = nil
-    }
-    
-    public func initialize(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
+    public init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
         userPool = CognitoUserPool(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
     }
     
@@ -43,11 +37,7 @@ public class RxCognito {
     
     fileprivate func checkPoolInitialized() -> Single<CognitoUserPool> {
         return Single.deferred { [unowned self] () -> Single<CognitoUserPool> in
-            if let userPool = self.userPool {
-                return Single.just(userPool)
-            } else {
-                return Single.error(CognitoError.NotInitializedError)
-            }
+            return Single.just(self.userPool)
         }
     }
 }

@@ -18,6 +18,7 @@
 		EE3AB28B24FCC9F900886D42 /* RxCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3AB28A24FCC9F900886D42 /* RxCognito.framework */; };
 		EE3AB28C24FCC9F900886D42 /* RxCognito.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE3AB28A24FCC9F900886D42 /* RxCognito.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EE3AB2B124FE04C200886D42 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2B024FE04C200886D42 /* LoginViewController.swift */; };
+		EE4D5295250654D90035170E /* CognitoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4D5294250654D90035170E /* CognitoStore.swift */; };
 		EE6202BF2500B46B00E4C433 /* RefreshViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202BE2500B46B00E4C433 /* RefreshViewController.swift */; };
 		EE6202C52501E17400E4C433 /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C42501E17400E4C433 /* LogoutViewController.swift */; };
 /* End PBXBuildFile section */
@@ -70,6 +71,7 @@
 		EE3AB27D24FCBEDE00886D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE3AB28A24FCC9F900886D42 /* RxCognito.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RxCognito.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3AB2B024FE04C200886D42 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		EE4D5294250654D90035170E /* CognitoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CognitoStore.swift; sourceTree = "<group>"; };
 		EE6202BE2500B46B00E4C433 /* RefreshViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshViewController.swift; sourceTree = "<group>"; };
 		EE6202C42501E17400E4C433 /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,6 +136,7 @@
 				EE3AB2B024FE04C200886D42 /* LoginViewController.swift */,
 				EE6202BE2500B46B00E4C433 /* RefreshViewController.swift */,
 				EE6202C42501E17400E4C433 /* LogoutViewController.swift */,
+				EE4D5294250654D90035170E /* CognitoStore.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			files = (
 				EE6202BF2500B46B00E4C433 /* RefreshViewController.swift in Sources */,
 				EE3AB2B124FE04C200886D42 /* LoginViewController.swift in Sources */,
+				EE4D5295250654D90035170E /* CognitoStore.swift in Sources */,
 				EE3AB25E24FCBEDD00886D42 /* ViewController.swift in Sources */,
 				EE3AB25A24FCBEDD00886D42 /* AppDelegate.swift in Sources */,
 				EE6202C52501E17400E4C433 /* LogoutViewController.swift in Sources */,

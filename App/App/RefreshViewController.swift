@@ -34,7 +34,7 @@ class RefreshViewController: UIViewController {
     */
 
     fileprivate func refresh() {
-        RxCognito.instance.getCurrentUser()
+        CognitoStore.cognito.getCurrentUser()
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (event) in
                 switch event {

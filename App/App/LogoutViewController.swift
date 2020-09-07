@@ -22,7 +22,7 @@ class LogoutViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        RxCognito.instance.getCurrentUser()
+        CognitoStore.cognito.getCurrentUser()
             .observeOn(MainScheduler.instance)
             .subscribe { [weak self] (event) in
                 switch event {
@@ -63,7 +63,7 @@ class LogoutViewController: UIViewController {
             return Disposables.create()
         }
         .delay(RxTimeInterval.milliseconds(500), scheduler: ConcurrentDispatchQueueScheduler.init(qos: .background))
-        .andThen(RxCognito.instance.getCurrentUser())
+        .andThen(CognitoStore.cognito.getCurrentUser())
         .observeOn(MainScheduler.instance)
         .subscribe { [weak self] (event) in
             switch event {
