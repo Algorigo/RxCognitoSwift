@@ -184,6 +184,10 @@ public class CognitoUser {
         userPool = nil
     }
     
+    public func getIdToken() -> String {
+        return idToken.jwtToken
+    }
+    
     func setIdToken(idToken: String) throws {
         if let idToken = IdToken(idToken: idToken) {
             self.idToken = idToken
@@ -254,10 +258,4 @@ public class CognitoUser {
     fileprivate static func csiRefreshTokenKey(appClientId: String, userId: String) -> String {
         "CognitoIdentityProvider." + appClientId + "." + userId + ".refreshToken"
     }
-    
-    //TODO 임시 코드 삭제
-    public func toString() -> String {
-        "userId:\(userId)\nidToken.userName:\(idToken.userName)\nidToken.authTime:\(idToken.authTime.dateString())\nexpiresIn:\(expiresIn.dateString())"
-    }
-    
 }

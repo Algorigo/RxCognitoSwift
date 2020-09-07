@@ -27,7 +27,7 @@ class LogoutViewController: UIViewController {
             .subscribe { [weak self] (event) in
                 switch event {
                 case .success(let user):
-                    self?.resultTextView.text = "\(user.toString())"
+                    self?.resultTextView.text = "\(user.getIdToken())"
                     self?.user = user
                 case .completed:
                     Log.d("LogoutViewController", "complete")
@@ -68,7 +68,7 @@ class LogoutViewController: UIViewController {
         .subscribe { [weak self] (event) in
             switch event {
             case .success(let user):
-                self?.resultTextView.text = "\(user.toString())"
+                self?.resultTextView.text = "\(user.getIdToken())"
                 self?.user = user
             case .completed:
                 Log.d("LogoutViewController", "complete")
