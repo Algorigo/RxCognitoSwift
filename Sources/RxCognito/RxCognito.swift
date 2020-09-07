@@ -3,7 +3,7 @@ import RxSwift
 
 public class RxCognito {
 
-    public static let version = "0.0.3"
+    public static let version = "0.0.4"
     
     fileprivate let userPool: CognitoUserPool
     
