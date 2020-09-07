@@ -39,7 +39,7 @@ class RefreshViewController: UIViewController {
             .subscribe { [weak self] (event) in
                 switch event {
                 case .success(let user):
-                    self?.resultTetView.text = "\(user.toString())"
+                    self?.resultTetView.text = "\(user.getIdToken())"
                 case .completed:
                     Log.d("RefreshViewController", "complete")
                     self?.resultTetView.text = "no user"
