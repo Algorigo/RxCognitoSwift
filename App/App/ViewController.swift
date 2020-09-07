@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }
 
     fileprivate func initiate(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
-        RxCognito.instance.initialize(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
+        CognitoStore.cognito = RxCognito.init(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
     }
     
     @IBAction func handleInitiate() {

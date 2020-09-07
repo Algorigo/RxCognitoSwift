@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
     @IBAction func handleLoginBtn() {
         if let userId = idTextField.text,
             let password = passwordTextField.text {
-            _ = RxCognito.instance.login(userId: userId, password: password)
+            _ = CognitoStore.cognito.login(userId: userId, password: password)
                 .observeOn(MainScheduler.instance)
                 .subscribe { [weak self] (event) in
                     switch (event) {
