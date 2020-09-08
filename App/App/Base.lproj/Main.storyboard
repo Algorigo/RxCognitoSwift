@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -230,13 +230,23 @@
                                     <segue destination="TOg-vp-krh" kind="show" id="ibs-bv-A26"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWo-xZ-z5M">
+                                <rect key="frame" x="20" y="210" width="374" height="30"/>
+                                <state key="normal" title="Resend Confirm Code"/>
+                                <connections>
+                                    <segue destination="pIC-gn-fYA" kind="show" id="iiT-zP-duf"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="4J2-Ar-VzQ" secondAttribute="trailing" constant="20" id="3zo-kR-EfE"/>
+                            <constraint firstItem="zWo-xZ-z5M" firstAttribute="top" secondItem="Uy2-M5-xTn" secondAttribute="bottom" constant="8" id="I00-YJ-e8T"/>
+                            <constraint firstItem="zWo-xZ-z5M" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="JD7-5A-AYA"/>
                             <constraint firstItem="Uy2-M5-xTn" firstAttribute="top" secondItem="iPK-KW-5fP" secondAttribute="bottom" constant="8" id="QZx-X0-vte"/>
                             <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="Uy2-M5-xTn" secondAttribute="trailing" constant="20" id="WV8-FS-qVf"/>
                             <constraint firstItem="iPK-KW-5fP" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="Y2u-sh-kw2"/>
+                            <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="zWo-xZ-z5M" secondAttribute="trailing" constant="20" id="ZP5-SM-LFp"/>
                             <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="iPK-KW-5fP" secondAttribute="trailing" constant="20" id="dlW-Wk-cF0"/>
                             <constraint firstItem="iPK-KW-5fP" firstAttribute="top" secondItem="4J2-Ar-VzQ" secondAttribute="bottom" constant="8" id="fNR-i9-da1"/>
                             <constraint firstItem="Uy2-M5-xTn" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="hcu-lo-rU4"/>
@@ -294,6 +304,59 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oY4-lV-RFL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2574" y="78"/>
+        </scene>
+        <!--Resend Code View Controller-->
+        <scene sceneID="3k8-hm-u4l">
+            <objects>
+                <viewController id="pIC-gn-fYA" customClass="ResendCodeViewController" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="te8-5C-PFp">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User ID : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G18-yH-Fb4">
+                                <rect key="frame" x="20" y="96" width="71" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H3P-ki-pDq">
+                                <rect key="frame" x="20" y="824" width="374" height="30"/>
+                                <state key="normal" title="Resend Confirm Code"/>
+                                <connections>
+                                    <action selector="handleResendConfirmCode:" destination="pIC-gn-fYA" eventType="touchUpInside" id="pL2-Wi-0sB"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O32-E8-ZVb">
+                                <rect key="frame" x="20" y="125" width="374" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="Hut-yz-R6j"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TZH-Dc-G8b" firstAttribute="trailing" secondItem="H3P-ki-pDq" secondAttribute="trailing" constant="20" id="FlW-8G-ZJs"/>
+                            <constraint firstItem="H3P-ki-pDq" firstAttribute="leading" secondItem="TZH-Dc-G8b" secondAttribute="leading" constant="20" id="Hqx-n6-dpt"/>
+                            <constraint firstItem="TZH-Dc-G8b" firstAttribute="trailing" secondItem="O32-E8-ZVb" secondAttribute="trailing" constant="20" id="Lab-8i-xST"/>
+                            <constraint firstItem="G18-yH-Fb4" firstAttribute="leading" secondItem="TZH-Dc-G8b" secondAttribute="leading" constant="20" id="Lgx-kT-An3"/>
+                            <constraint firstItem="O32-E8-ZVb" firstAttribute="leading" secondItem="TZH-Dc-G8b" secondAttribute="leading" constant="20" id="Nbu-Nq-H7c"/>
+                            <constraint firstItem="TZH-Dc-G8b" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G18-yH-Fb4" secondAttribute="trailing" symbolic="YES" id="Nks-8m-g9o"/>
+                            <constraint firstItem="G18-yH-Fb4" firstAttribute="top" secondItem="TZH-Dc-G8b" secondAttribute="top" constant="8" id="Rsy-zn-4jO"/>
+                            <constraint firstItem="O32-E8-ZVb" firstAttribute="top" secondItem="G18-yH-Fb4" secondAttribute="bottom" constant="8" id="Vnm-zh-3Xa"/>
+                            <constraint firstItem="H3P-ki-pDq" firstAttribute="bottom" secondItem="TZH-Dc-G8b" secondAttribute="bottom" constant="-8" id="xai-vS-WKX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TZH-Dc-G8b"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="PCx-KM-vZj"/>
+                    <connections>
+                        <outlet property="userIdTextField" destination="O32-E8-ZVb" id="ntM-y0-CzW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ax8-J2-pQS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3388" y="78"/>
         </scene>
         <!--Logout View Controller-->
         <scene sceneID="oB6-1X-ou6">

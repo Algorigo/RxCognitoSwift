@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE0E24CD2508504A00AD36E9 /* ResendCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0E24CC2508504A00AD36E9 /* ResendCodeViewController.swift */; };
 		EE3AB25A24FCBEDD00886D42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB25924FCBEDD00886D42 /* AppDelegate.swift */; };
 		EE3AB25C24FCBEDD00886D42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB25B24FCBEDD00886D42 /* SceneDelegate.swift */; };
 		EE3AB25E24FCBEDD00886D42 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB25D24FCBEDD00886D42 /* ViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EE0E24CC2508504A00AD36E9 /* ResendCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResendCodeViewController.swift; sourceTree = "<group>"; };
 		EE3AB25624FCBEDD00886D42 /* App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE3AB25924FCBEDD00886D42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE3AB25B24FCBEDD00886D42 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				EE6202BE2500B46B00E4C433 /* RefreshViewController.swift */,
 				EE6202C42501E17400E4C433 /* LogoutViewController.swift */,
 				EE4D5294250654D90035170E /* CognitoStore.swift */,
+				EE0E24CC2508504A00AD36E9 /* ResendCodeViewController.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 				EE3AB2B124FE04C200886D42 /* LoginViewController.swift in Sources */,
 				EE4D5295250654D90035170E /* CognitoStore.swift in Sources */,
 				EE3AB25E24FCBEDD00886D42 /* ViewController.swift in Sources */,
+				EE0E24CD2508504A00AD36E9 /* ResendCodeViewController.swift in Sources */,
 				EE3AB25A24FCBEDD00886D42 /* AppDelegate.swift in Sources */,
 				EE6202C52501E17400E4C433 /* LogoutViewController.swift in Sources */,
 				EE3AB25C24FCBEDD00886D42 /* SceneDelegate.swift in Sources */,

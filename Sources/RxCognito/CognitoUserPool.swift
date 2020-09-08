@@ -108,7 +108,7 @@ class CognitoUserPool {
         let clientAValueNumber = BigNum(bytes: SymmetricKey(size: .bits256))
         let publicAValueNumber = CognitoUserPool.g.power(clientAValueNumber, modulus: CognitoUserPool.N)
         let clientPublicKey = publicAValueNumber.hex
-        let secretHash = (userId+appClientId).hmac(key: appClientSecret)
+        let secretHash = createSecretHash(userId: userId)
         
         return identityProvider.initiateAuth(CognitoIdentityProvider.InitiateAuthRequest.init(analyticsMetadata: nil, authFlow: CognitoIdentityProvider.AuthFlowType.userSrpAuth, authParameters: ["USERNAME": userId, "SRP_A": clientPublicKey, "SECRET_HASH": secretHash], clientId: appClientId, clientMetadata: nil, userContextData: nil))
             .flatMap { (response) -> EventLoopFuture<CognitoUserPool.InitiateAuthResponse> in
@@ -124,6 +124,10 @@ class CognitoUserPool {
                 }
             }
             .toSingle()
+    }
+    
+    fileprivate func createSecretHash(userId: String) -> String {
+        (userId+appClientId).hmac(key: appClientSecret)
     }
     
     func respondToAuthChallenge(userId: String, password: String, response: InitiateAuthResponse) -> Single<CognitoUser?> {
@@ -221,6 +225,20 @@ class CognitoUserPool {
                 }
             }
             .toSingle()
+    }
+    
+    func resendConfirmCode(userId: String) -> Single<String> {
+        let secretHash = createSecretHash(userId: userId)
+        let resendConfirmCodeReq = CognitoIdentityProvider.ResendConfirmationCodeRequest(analyticsMetadata: nil, clientId: appClientId, clientMetadata: nil, secretHash: secretHash, userContextData: nil, username: userId)
+        return identityProvider.resendConfirmationCode(resendConfirmCodeReq)
+            .toSingle()
+            .map({ (response) -> String in
+                if let deliveryMedium = response.codeDeliveryDetails?.deliveryMedium?.rawValue {
+                    return deliveryMedium
+                } else {
+                    throw CognitoError.ResendCodeDeliveryMediumEmpty
+                }
+            })
     }
 }
 
