@@ -3,7 +3,7 @@ import RxSwift
 
 public class RxCognito {
 
-    public static let version = "0.0.4"
+    public static let version = "0.0.5"
     
     fileprivate let userPool: CognitoUserPool
     
@@ -12,14 +12,14 @@ public class RxCognito {
     }
     
     public func getCurrentUser() -> Maybe<CognitoUser> {
-        return checkPoolInitialized()
+        checkPoolInitialized()
             .flatMapMaybe { (pool) -> Maybe<CognitoUser> in
                 return pool.getCurrentUser()
             }
     }
     
     public func login(userId: String, password: String) -> Single<CognitoUser> {
-        return checkPoolInitialized()
+        checkPoolInitialized()
             .flatMap { (pool) -> Single<CognitoUser> in
                 pool.initiateAuth(userId: userId)
                 .flatMap { (response) -> Single<CognitoUser> in
@@ -36,8 +36,20 @@ public class RxCognito {
     }
     
     fileprivate func checkPoolInitialized() -> Single<CognitoUserPool> {
-        return Single.deferred { [unowned self] () -> Single<CognitoUserPool> in
-            return Single.just(self.userPool)
+        Single.deferred { [unowned self] () -> Single<CognitoUserPool> in
+            Single.just(self.userPool)
         }
+    }
+    
+    public func resendConfirmCode(userId: String) -> Single<String> {
+        userPool.resendConfirmCode(userId: userId)
+    }
+    
+    public func forgotPassword(userId: String) -> Single<ForgotPasswordContinuation> {
+        userPool.forgotPassword(userId: userId)
+    }
+    
+    public func continueForgotPassword(continuation: ForgotPasswordContinuation, verificationCode: String, newPassword: String) -> Completable {
+        userPool.continueForgotPassword(forgotPasswordContinuation: continuation, verificationCode: verificationCode, newPassword: newPassword)
     }
 }

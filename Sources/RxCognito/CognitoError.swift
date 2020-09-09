@@ -11,4 +11,6 @@ public enum CognitoError : Error {
     case NotInitializedError
     case NotEnoughResponse
     case SignatureCalculationError
+    case ResendCodeDeliveryMediumEmpty
+    case ForgotPasswordResponseEmpty
 }
