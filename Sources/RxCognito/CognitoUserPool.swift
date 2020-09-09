@@ -240,5 +240,28 @@ class CognitoUserPool {
                 }
             })
     }
+    
+    func forgotPassword(userId: String) -> Single<ForgotPasswordContinuation> {
+        let secretHash = createSecretHash(userId: userId)
+        let forgotPasswordReq = CognitoIdentityProvider.ForgotPasswordRequest(analyticsMetadata: nil, clientId: appClientId, clientMetadata: nil, secretHash: secretHash, userContextData: nil, username: userId)
+        
+        return identityProvider.forgotPassword(forgotPasswordReq)
+            .toSingle()
+            .map { (response) -> ForgotPasswordContinuation in
+                if let destination = response.codeDeliveryDetails?.destination,
+                    let deliveryMedium = response.codeDeliveryDetails?.deliveryMedium {
+                    return ForgotPasswordContinuation(userId: userId, destination: destination, deliveryMedium: deliveryMedium)
+                } else {
+                    throw CognitoError.ForgotPasswordResponseEmpty
+                }
+            }
+    }
+    
+    func continueForgotPassword(forgotPasswordContinuation: ForgotPasswordContinuation, verificationCode: String, newPassword: String) -> Completable {
+        let secretHash = createSecretHash(userId: forgotPasswordContinuation.userId)
+        let confirmForgotPasswordReq = CognitoIdentityProvider.ConfirmForgotPasswordRequest(analyticsMetadata: nil, clientId: appClientId, clientMetadata: nil, confirmationCode: verificationCode, password: newPassword, secretHash: secretHash, userContextData: nil, username: forgotPasswordContinuation.userId)
+        return identityProvider.confirmForgotPassword(confirmForgotPasswordReq)
+            .toSingle()
+            .asCompletable()
+    }
 }
-
