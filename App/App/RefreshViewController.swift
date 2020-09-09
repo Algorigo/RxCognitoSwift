@@ -12,9 +12,12 @@ import RxSwift
 
 class RefreshViewController: UIViewController {
     
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var newPasswordTextField: UITextField!
     @IBOutlet weak var resultTetView: UITextView!
     
     private let disposeBag = DisposeBag()
+    private var cognitoUser: CognitoUser? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,15 +42,37 @@ class RefreshViewController: UIViewController {
             .subscribe { [weak self] (event) in
                 switch event {
                 case .success(let user):
+                    self?.cognitoUser = user
                     self?.resultTetView.text = "\(user.getIdToken())"
                 case .completed:
                     Log.d("RefreshViewController", "complete")
+                    self?.cognitoUser = nil
                     self?.resultTetView.text = "no user"
                 case .error(let error):
                     Log.e("RefreshViewController", "cognito error:\(error)")
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    @IBAction func handleChangePassword(_ sender: Any) {
+        if let password = passwordTextField.text,
+            !password.isEmpty,
+            let newPassword = newPasswordTextField.text,
+            !newPassword.isEmpty {
+            cognitoUser?.changePassword(password: password, newPassword: newPassword)
+                .observeOn(MainScheduler.instance)
+                .subscribe { [weak self] (event) in
+                    switch event {
+                    case .completed:
+                        Log.d("RefreshViewController", "completed")
+                        self?.resultTetView.text = "password change success"
+                    case .error(let error):
+                        Log.e("RefreshViewController", "cognito error:\(error)")
+                    }
+                }
+                .disposed(by: disposeBag)
+        }
     }
     
     @IBAction func handleRefresh(_ sender: Any) {

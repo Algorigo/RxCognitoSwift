@@ -287,33 +287,77 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nCO-Ap-iOH">
-                                <rect key="frame" x="20" y="96" width="374" height="720"/>
+                                <rect key="frame" x="20" y="276" width="374" height="540"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" red="0.0039648576640000004" green="0.60692834849999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsI-to-rN2">
+                                <rect key="frame" x="20" y="96" width="83" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9F3-Vi-lHB">
+                                <rect key="frame" x="20" y="125" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Password :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2O6-dh-jnZ">
+                                <rect key="frame" x="20" y="167" width="122" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2WB-ru-dxc">
+                                <rect key="frame" x="20" y="196" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OrF-Ai-7KC">
+                                <rect key="frame" x="20" y="238" width="374" height="30"/>
+                                <state key="normal" title="Change Password"/>
+                                <connections>
+                                    <action selector="handleChangePassword:" destination="ryJ-il-MOi" eventType="touchUpInside" id="d4T-8f-VlP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="OrF-Ai-7KC" firstAttribute="top" secondItem="2WB-ru-dxc" secondAttribute="bottom" constant="8" id="16k-WJ-ght"/>
                             <constraint firstItem="275-p0-WUn" firstAttribute="bottom" secondItem="r39-Lf-vGx" secondAttribute="bottom" constant="-8" id="1L2-Cd-uG3"/>
+                            <constraint firstItem="r39-Lf-vGx" firstAttribute="trailing" secondItem="9F3-Vi-lHB" secondAttribute="trailing" constant="20" id="4Sx-iV-c7f"/>
+                            <constraint firstItem="2WB-ru-dxc" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="ETS-p1-ZS8"/>
+                            <constraint firstItem="OrF-Ai-7KC" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="EV5-pE-STC"/>
                             <constraint firstItem="275-p0-WUn" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="ExB-FX-w9u"/>
                             <constraint firstItem="nCO-Ap-iOH" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="Krv-Kz-n7Z"/>
-                            <constraint firstItem="nCO-Ap-iOH" firstAttribute="top" secondItem="r39-Lf-vGx" secondAttribute="top" constant="8" id="RQk-VD-IXo"/>
+                            <constraint firstItem="2O6-dh-jnZ" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="Kwx-6a-9GM"/>
+                            <constraint firstItem="9F3-Vi-lHB" firstAttribute="top" secondItem="gsI-to-rN2" secondAttribute="bottom" constant="8" id="MTt-AF-hNf"/>
+                            <constraint firstItem="9F3-Vi-lHB" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="Rz6-We-fL1"/>
+                            <constraint firstItem="nCO-Ap-iOH" firstAttribute="top" secondItem="OrF-Ai-7KC" secondAttribute="bottom" constant="8" id="ZpL-Jp-D7T"/>
                             <constraint firstItem="275-p0-WUn" firstAttribute="top" secondItem="nCO-Ap-iOH" secondAttribute="bottom" constant="8" id="aDR-Bj-j4i"/>
+                            <constraint firstItem="r39-Lf-vGx" firstAttribute="trailing" secondItem="OrF-Ai-7KC" secondAttribute="trailing" constant="20" id="aMh-5f-MKJ"/>
+                            <constraint firstItem="r39-Lf-vGx" firstAttribute="trailing" secondItem="2WB-ru-dxc" secondAttribute="trailing" constant="20" id="m6A-nG-riX"/>
+                            <constraint firstItem="gsI-to-rN2" firstAttribute="top" secondItem="r39-Lf-vGx" secondAttribute="top" constant="8" id="oEY-a3-RCp"/>
                             <constraint firstItem="r39-Lf-vGx" firstAttribute="trailing" secondItem="nCO-Ap-iOH" secondAttribute="trailing" constant="20" id="q4x-bn-Dj6"/>
+                            <constraint firstItem="2O6-dh-jnZ" firstAttribute="top" secondItem="9F3-Vi-lHB" secondAttribute="bottom" constant="8" id="riy-k1-Gdi"/>
                             <constraint firstItem="r39-Lf-vGx" firstAttribute="trailing" secondItem="275-p0-WUn" secondAttribute="trailing" constant="20" id="tcf-yg-35M"/>
+                            <constraint firstItem="2WB-ru-dxc" firstAttribute="top" secondItem="2O6-dh-jnZ" secondAttribute="bottom" constant="8" id="wts-yd-FOv"/>
+                            <constraint firstItem="gsI-to-rN2" firstAttribute="leading" secondItem="r39-Lf-vGx" secondAttribute="leading" constant="20" id="zg1-AI-jJD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="r39-Lf-vGx"/>
                     </view>
                     <navigationItem key="navigationItem" id="PlC-zZ-yQd"/>
                     <connections>
+                        <outlet property="newPasswordTextField" destination="2WB-ru-dxc" id="tmH-4K-Cu9"/>
+                        <outlet property="passwordTextField" destination="9F3-Vi-lHB" id="RZO-1z-V3G"/>
                         <outlet property="resultTetView" destination="nCO-Ap-iOH" id="6Ys-He-Cn3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oY4-lV-RFL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2574" y="78"/>
+            <point key="canvasLocation" x="2573.913043478261" y="77.678571428571431"/>
         </scene>
         <!--Resend Code View Controller-->
         <scene sceneID="3k8-hm-u4l">

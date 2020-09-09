@@ -7,6 +7,7 @@
 
 import Foundation
 import CognitoIdentityProvider
+import RxSwift
 
 public class CognitoUser {
     struct IdToken {
@@ -222,6 +223,17 @@ public class CognitoUser {
     
     func isValidForThreshold() -> Bool {
         return Date().distance(to: expiresIn) > CognitoUser.REFRESH_THRESHOLD
+    }
+    
+    public func changePassword(password: String, newPassword: String) -> Completable {
+        if let pool = userPool {
+            let changePasswordReq = CognitoIdentityProvider.ChangePasswordRequest(accessToken: accessToken.jwtToken, previousPassword: password, proposedPassword: newPassword)
+            return pool.identityProvider.changePassword(changePasswordReq)
+                .toSingle()
+                .asCompletable()
+        } else {
+            return Completable.error(CognitoError.NotInitializedError)
+        }
     }
     
     fileprivate func cacheTokens() {
