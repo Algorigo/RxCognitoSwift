@@ -75,9 +75,13 @@ class CognitoUserPool {
         self.identityProvider = CognitoIdentityProvider.init(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, sessionToken: nil, region: regions.getRegion(), endpoint: nil, middlewares: [], eventLoopGroupProvider: AWSClient.EventLoopGroupProvider.useAWSClientShared)
     }
     
+    func getCurrentUserId() -> String? {
+        self.userDefaults?.string(forKey: self.csiLastUserKey)
+    }
+    
     func getCurrentUser() -> Maybe<CognitoUser> {
         return Maybe<CognitoUser>.create { [unowned self] (observer) -> Disposable in
-            if let userId = self.userDefaults?.string(forKey: self.csiLastUserKey),
+            if let userId = getCurrentUserId(),
                 let user = CognitoUser.init(userPool: self, userId: userId) {
                 observer(.success(user))
             } else {
