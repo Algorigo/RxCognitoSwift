@@ -14,7 +14,6 @@ public class CognitoUser {
         let jwtToken: String
         let appClientId: String //aud
         let email: String //email
-        let locale: String //locale
         let emailVerified: Bool //email_verified
         let userName: UUID //cognito:username
         let eventId: UUID //eventId
@@ -31,7 +30,6 @@ public class CognitoUser {
                 let jwt = idToken.decodeJwt()
                 let _appClientId = jwt["aud"] as? String
                 let _email = jwt["email"] as? String
-                let _locale = jwt["locale"] as? String
                 let _emailVerified = jwt["email_verified"] as? Int
                 let _userName = UUID(uuidString: jwt["cognito:username"] as? String ?? "")
                 let _eventId = UUID(uuidString: jwt["event_id"] as? String ?? "")
@@ -43,7 +41,6 @@ public class CognitoUser {
                 let _tokenUse = jwt["token_use"] as? String
                 if let _appClientId = _appClientId,
                     let _email = _email,
-                    let _locale = _locale,
                     let _emailVerified = _emailVerified,
                     let _userName = _userName,
                     let _eventId = _eventId,
@@ -55,7 +52,6 @@ public class CognitoUser {
                     let _tokenUse = _tokenUse {
                     self.appClientId = _appClientId
                     self.email = _email
-                    self.locale = _locale
                     self.emailVerified = _emailVerified > 0
                     self.userName = _userName
                     self.eventId = _eventId
