@@ -188,6 +188,7 @@ public class CognitoUser {
     func setIdToken(idToken: String) throws {
         if let idToken = IdToken(idToken: idToken) {
             self.idToken = idToken
+            self.expiresIn = idToken.exp
             if let pool = userPool,
                 let userDefaults = pool.userDefaults {
                 // Create keys to look for cached tokens
@@ -211,10 +212,6 @@ public class CognitoUser {
         } else {
             throw CognitoError.NotEnoughResponse
         }
-    }
-    
-    func setExpiresIn(expiresIn: Int) {
-        self.expiresIn = Date(timeInterval: TimeInterval(expiresIn), since: self.idToken.authTime)
     }
     
     func isValidForThreshold() -> Bool {
