@@ -98,7 +98,6 @@ class CognitoUserPool {
                         if let response = response {
                             try cognitoUser.setIdToken(idToken: response.idToken)
                             try cognitoUser.setAccessToken(accessToken: response.acessToken)
-                            cognitoUser.setExpiresIn(expiresIn: response.expiresIn)
                             return Maybe.just(cognitoUser)
                         } else {
                             return Maybe.empty()
