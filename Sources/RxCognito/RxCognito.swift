@@ -5,7 +5,7 @@ import SotoCore
 
 public class RxCognito {
 
-    public static let version = "0.0.8"
+    public static let version = "0.0.9"
     
     fileprivate let awsClient: AWSClient
     fileprivate let userPool: CognitoUserPool
