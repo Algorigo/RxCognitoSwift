@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AWSSDKSwiftCore
+import SotoCore
 
 public enum Regions: CaseIterable {
     case useast1

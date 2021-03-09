@@ -1,14 +1,21 @@
 
+import Foundation
 import RxSwift
+import SotoCore
 
 public class RxCognito {
 
     public static let version = "0.0.8"
     
+    fileprivate let awsClient: AWSClient
     fileprivate let userPool: CognitoUserPool
     
     public init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
-        userPool = CognitoUserPool(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
+        awsClient = AWSClient(
+            credentialProvider: .static(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey),
+            httpClientProvider: .createNew
+        )
+        userPool = CognitoUserPool(awsClient: awsClient, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
     }
     
     public func getCurrentUserId() -> Maybe<String> {

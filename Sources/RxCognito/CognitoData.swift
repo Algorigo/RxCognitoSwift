@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CognitoIdentityProvider
+import SotoCognitoIdentityProvider
 
 public struct ForgotPasswordContinuation {
     let userId: String

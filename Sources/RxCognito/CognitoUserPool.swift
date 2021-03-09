@@ -8,7 +8,7 @@
 import Foundation
 import BigNum
 import CryptoKit
-import CognitoIdentityProvider
+import SotoCognitoIdentityProvider
 import NIO
 import RxSwift
 
@@ -53,8 +53,6 @@ class CognitoUserPool {
     
     let userDefaults = UserDefaults.init(suiteName: "Cognito")
     
-    let accessKeyId: String
-    let secretAccessKey: String
     let regions: Regions
     let userPoolId: String
     let appClientId: String
@@ -64,15 +62,13 @@ class CognitoUserPool {
         return "CognitoIdentityProvider." + appClientId + ".LastAuthUser"
     }
     
-    init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
-        self.accessKeyId = accessKeyId
-        self.secretAccessKey = secretAccessKey
+    init(awsClient: AWSClient, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
         self.regions = regions
         self.userPoolId = userPoolId
         self.appClientId = appClientId
         self.appClientSecret = appClientSecret
         
-        self.identityProvider = CognitoIdentityProvider.init(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, sessionToken: nil, region: regions.getRegion(), endpoint: nil, middlewares: [], eventLoopGroupProvider: AWSClient.EventLoopGroupProvider.useAWSClientShared)
+        self.identityProvider = CognitoIdentityProvider.init(client: awsClient, region: regions.getRegion())
     }
     
     func getCurrentUserId() -> String? {

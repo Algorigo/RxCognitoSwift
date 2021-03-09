@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CognitoIdentityProvider
+import SotoCognitoIdentityProvider
 import RxSwift
 
 public class CognitoUser {
