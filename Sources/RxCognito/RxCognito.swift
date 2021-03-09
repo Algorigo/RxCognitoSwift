@@ -1,14 +1,23 @@
 
+import Foundation
 import RxSwift
+import SotoCore
 
 public class RxCognito {
 
-    public static let version = "0.0.8"
+    public static let version = "0.0.9"
     
+    fileprivate let awsClient: AWSClient
     fileprivate let userPool: CognitoUserPool
+    fileprivate let s3Uploader: S3Uploader
     
     public init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
-        userPool = CognitoUserPool(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
+        awsClient = AWSClient(
+            credentialProvider: .static(accessKeyId: accessKeyId, secretAccessKey: secretAccessKey),
+            httpClientProvider: .createNew
+        )
+        userPool = CognitoUserPool(awsClient: awsClient, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
+        s3Uploader = S3Uploader(awsClient: awsClient, regions: regions)
     }
     
     public func getCurrentUserId() -> Maybe<String> {
@@ -47,5 +56,9 @@ public class RxCognito {
     
     public func continueForgotPassword(continuation: ForgotPasswordContinuation, verificationCode: String, newPassword: String) -> Completable {
         userPool.continueForgotPassword(forgotPasswordContinuation: continuation, verificationCode: verificationCode, newPassword: newPassword)
+    }
+    
+    public func putObject(bucket: String, key: String, data: Data) -> Completable {
+        s3Uploader.putObject(bucket: bucket, key: key, data: data)
     }
 }

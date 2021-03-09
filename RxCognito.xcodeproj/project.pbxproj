@@ -22,7 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		EE0E24D125086F4700AD36E9 /* CognitoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0E24D025086F4700AD36E9 /* CognitoData.swift */; };
-		EE3AB29024FCCFBD00886D42 /* CognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB28F24FCCFBD00886D42 /* CognitoIdentityProvider */; };
 		EE3AB29224FCD3F100886D42 /* CognitoUserPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB29124FCD3F100886D42 /* CognitoUserPool.swift */; };
 		EE3AB29524FCD51A00886D42 /* BigNum in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB29424FCD51A00886D42 /* BigNum */; };
 		EE3AB29824FCDA3800886D42 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = EE3AB29724FCDA3800886D42 /* RxRelay */; };
@@ -39,6 +38,9 @@
 		EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3AB2AE24FDF74A00886D42 /* Regions.swift */; };
 		EE6202C125010BF300E4C433 /* RxExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C025010BF300E4C433 /* RxExt.swift */; };
 		EE6202C32501B6E200E4C433 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE6202C22501B6E200E4C433 /* Log.swift */; };
+		EEA7A41325F61285009D419E /* S3Uploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA7A41225F61285009D419E /* S3Uploader.swift */; };
+		EEA7A42D25F62227009D419E /* SotoCognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = EEA7A42C25F62227009D419E /* SotoCognitoIdentityProvider */; };
+		EEA7A42F25F62227009D419E /* SotoS3 in Frameworks */ = {isa = PBXBuildFile; productRef = EEA7A42E25F62227009D419E /* SotoS3 */; };
 		OBJ_22 /* RxCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* RxCognito.swift */; };
 		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_40 /* RxCognitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* RxCognitoTests.swift */; };
@@ -77,6 +79,7 @@
 		EE3AB2AE24FDF74A00886D42 /* Regions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Regions.swift; sourceTree = "<group>"; };
 		EE6202C025010BF300E4C433 /* RxExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExt.swift; sourceTree = "<group>"; };
 		EE6202C22501B6E200E4C433 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		EEA7A41225F61285009D419E /* S3Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Uploader.swift; sourceTree = "<group>"; };
 		OBJ_12 /* RxCognitoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCognitoTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
@@ -92,9 +95,10 @@
 			files = (
 				EE3AB29824FCDA3800886D42 /* RxRelay in Frameworks */,
 				EE3AB29524FCD51A00886D42 /* BigNum in Frameworks */,
+				EEA7A42D25F62227009D419E /* SotoCognitoIdentityProvider in Frameworks */,
 				EE3AB29C24FCDA3800886D42 /* RxCocoa in Frameworks */,
+				EEA7A42F25F62227009D419E /* SotoS3 in Frameworks */,
 				EE3AB29A24FCDA3800886D42 /* RxSwift in Frameworks */,
-				EE3AB29024FCCFBD00886D42 /* CognitoIdentityProvider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,6 +183,7 @@
 				EE3AB2A824FDC6F900886D42 /* CognitoUser.swift */,
 				EE3AB2AE24FDF74A00886D42 /* Regions.swift */,
 				EE0E24D025086F4700AD36E9 /* CognitoData.swift */,
+				EEA7A41225F61285009D419E /* S3Uploader.swift */,
 			);
 			name = RxCognito;
 			path = Sources/RxCognito;
@@ -200,11 +205,12 @@
 			);
 			name = RxCognito;
 			packageProductDependencies = (
-				EE3AB28F24FCCFBD00886D42 /* CognitoIdentityProvider */,
 				EE3AB29424FCD51A00886D42 /* BigNum */,
 				EE3AB29724FCDA3800886D42 /* RxRelay */,
 				EE3AB29924FCDA3800886D42 /* RxSwift */,
 				EE3AB29B24FCDA3800886D42 /* RxCocoa */,
+				EEA7A42C25F62227009D419E /* SotoCognitoIdentityProvider */,
+				EEA7A42E25F62227009D419E /* SotoS3 */,
 			);
 			productName = RxCognito;
 			productReference = "RxCognito::RxCognito::Product" /* RxCognito.framework */;
@@ -259,9 +265,9 @@
 			);
 			mainGroup = OBJ_5;
 			packageReferences = (
-				EE3AB28E24FCCFBD00886D42 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
 				EE3AB29324FCD51A00886D42 /* XCRemoteSwiftPackageReference "big-num" */,
 				EE3AB29624FCDA3800886D42 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				EEA7A42925F62227009D419E /* XCRemoteSwiftPackageReference "soto" */,
 			);
 			productRefGroup = OBJ_14 /* Products */;
 			projectDirPath = "";
@@ -285,6 +291,7 @@
 				EE6202C32501B6E200E4C433 /* Log.swift in Sources */,
 				EE3AB2AF24FDF74A00886D42 /* Regions.swift in Sources */,
 				EE3AB29F24FCDE3D00886D42 /* CryptoExt.swift in Sources */,
+				EEA7A41325F61285009D419E /* S3Uploader.swift in Sources */,
 				EE3AB2A724FCF2DF00886D42 /* TypeConvertExt.swift in Sources */,
 				EE6202C125010BF300E4C433 /* RxExt.swift in Sources */,
 				OBJ_22 /* RxCognito.swift in Sources */,
@@ -583,14 +590,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		EE3AB28E24FCCFBD00886D42 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/swift-aws/aws-sdk-swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.8.0;
-			};
-		};
 		EE3AB29324FCD51A00886D42 /* XCRemoteSwiftPackageReference "big-num" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adam-fowler/big-num";
@@ -607,14 +606,17 @@
 				minimumVersion = 5.1.1;
 			};
 		};
+		EEA7A42925F62227009D419E /* XCRemoteSwiftPackageReference "soto" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/soto-project/soto.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		EE3AB28F24FCCFBD00886D42 /* CognitoIdentityProvider */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EE3AB28E24FCCFBD00886D42 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
-			productName = CognitoIdentityProvider;
-		};
 		EE3AB29424FCD51A00886D42 /* BigNum */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EE3AB29324FCD51A00886D42 /* XCRemoteSwiftPackageReference "big-num" */;
@@ -634,6 +636,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EE3AB29624FCDA3800886D42 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
+		};
+		EEA7A42C25F62227009D419E /* SotoCognitoIdentityProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEA7A42925F62227009D419E /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoCognitoIdentityProvider;
+		};
+		EEA7A42E25F62227009D419E /* SotoS3 */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEA7A42925F62227009D419E /* XCRemoteSwiftPackageReference "soto" */;
+			productName = SotoS3;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
