@@ -9,6 +9,7 @@ public class RxCognito {
     
     fileprivate let awsClient: AWSClient
     fileprivate let userPool: CognitoUserPool
+    fileprivate let s3Uploader: S3Uploader
     
     public init(accessKeyId: String, secretAccessKey: String, regions: Regions, userPoolId: String, appClientId: String, appClientSecret: String) {
         awsClient = AWSClient(
@@ -16,6 +17,7 @@ public class RxCognito {
             httpClientProvider: .createNew
         )
         userPool = CognitoUserPool(awsClient: awsClient, regions: regions, userPoolId: userPoolId, appClientId: appClientId, appClientSecret: appClientSecret)
+        s3Uploader = S3Uploader(awsClient: awsClient, regions: regions)
     }
     
     public func getCurrentUserId() -> Maybe<String> {
@@ -54,5 +56,9 @@ public class RxCognito {
     
     public func continueForgotPassword(continuation: ForgotPasswordContinuation, verificationCode: String, newPassword: String) -> Completable {
         userPool.continueForgotPassword(forgotPasswordContinuation: continuation, verificationCode: verificationCode, newPassword: newPassword)
+    }
+    
+    public func putObject(bucket: String, key: String, data: Data) -> Completable {
+        s3Uploader.putObject(bucket: bucket, key: key, data: data)
     }
 }
