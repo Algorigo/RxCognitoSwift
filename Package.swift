@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
-        .package(name: "AWSSDKSwift", url: "https://github.com/swift-aws/aws-sdk-swift.git", from: "4.7.0"),
+        .package(url: "https://github.com/soto-project/soto.git", from: "5.3.0"),
         .package(url: "https://github.com/adam-fowler/big-num", from: "2.0.0"),
         .package(url: "https://github.com/ReactiveX/RxSwift.git", from: "5.1.1"),
     ],
@@ -26,7 +26,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "RxCognito",
-            dependencies: ["AWSSDKSwift", .product(name: "CognitoIdentityProvider", package: "AWSSDKSwift"), .product(name:"BigNum", package: "big-num")]),
+            dependencies: [.product(name: "SotoCognitoIdentityProvider", package: "soto"), .product(name: "SotoS3", package: "soto"), .product(name:"BigNum", package: "big-num"), "RxSwift"]),
         .testTarget(
             name: "RxCognitoTests",
             dependencies: ["RxCognito"]),

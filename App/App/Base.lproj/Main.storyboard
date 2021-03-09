@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -261,6 +261,13 @@
                                     <segue destination="ALQ-7u-nai" kind="show" id="2Mf-ZV-1sY"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eDZ-Gt-vVJ">
+                                <rect key="frame" x="20" y="286" width="374" height="30"/>
+                                <state key="normal" title="Upload S3 Data"/>
+                                <connections>
+                                    <segue destination="9pr-PO-EMq" kind="show" id="RPf-fz-KEt"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="cVv-ba-6og"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -271,6 +278,7 @@
                             <constraint firstItem="zWo-xZ-z5M" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="JD7-5A-AYA"/>
                             <constraint firstItem="VBV-cj-7uO" firstAttribute="top" secondItem="zWo-xZ-z5M" secondAttribute="bottom" constant="8" id="L8I-Yn-1YQ"/>
                             <constraint firstItem="Uy2-M5-xTn" firstAttribute="top" secondItem="iPK-KW-5fP" secondAttribute="bottom" constant="8" id="QZx-X0-vte"/>
+                            <constraint firstItem="eDZ-Gt-vVJ" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="S4L-pd-5yN"/>
                             <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="Uy2-M5-xTn" secondAttribute="trailing" constant="20" id="WV8-FS-qVf"/>
                             <constraint firstItem="iPK-KW-5fP" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="Y2u-sh-kw2"/>
                             <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="zWo-xZ-z5M" secondAttribute="trailing" constant="20" id="ZP5-SM-LFp"/>
@@ -280,6 +288,8 @@
                             <constraint firstItem="Uy2-M5-xTn" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="hcu-lo-rU4"/>
                             <constraint firstItem="4J2-Ar-VzQ" firstAttribute="leading" secondItem="cVv-ba-6og" secondAttribute="leading" constant="20" id="jWX-Di-1BC"/>
                             <constraint firstItem="4J2-Ar-VzQ" firstAttribute="top" secondItem="cVv-ba-6og" secondAttribute="top" constant="8" id="tN8-UL-qNF"/>
+                            <constraint firstItem="eDZ-Gt-vVJ" firstAttribute="top" secondItem="VBV-cj-7uO" secondAttribute="bottom" constant="8" symbolic="YES" id="v74-uv-7iW"/>
+                            <constraint firstItem="cVv-ba-6og" firstAttribute="trailing" secondItem="eDZ-Gt-vVJ" secondAttribute="trailing" constant="20" id="zvO-85-gPt"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IvH-RE-0QN"/>
@@ -478,6 +488,94 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nd7-l6-55x" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2574" y="755"/>
+        </scene>
+        <!--Upload View Controller-->
+        <scene sceneID="3kF-Ai-0qQ">
+            <objects>
+                <viewController id="9pr-PO-EMq" customClass="S3UploadViewController" customModule="App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qLl-Un-lqN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="v4Z-ep-iy3">
+                                <rect key="frame" x="20" y="141" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bucket Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXm-2d-Yax">
+                                <rect key="frame" x="20" y="104" width="102" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Key" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UFa-Ii-u8z">
+                                <rect key="frame" x="20" y="191" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="63t-7s-yF7">
+                                <rect key="frame" x="20" y="228" width="374" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="MS2-cY-1gp">
+                                <rect key="frame" x="20" y="278" width="374" height="522"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DtL-9N-BG1">
+                                <rect key="frame" x="20" y="816" width="374" height="30"/>
+                                <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="handleUpload:" destination="9pr-PO-EMq" eventType="touchUpInside" id="9Yd-9i-Tpb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Wte-1Z-9Wr"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="v4Z-ep-iy3" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="4cD-Z4-f6Z"/>
+                            <constraint firstItem="Wte-1Z-9Wr" firstAttribute="bottom" secondItem="DtL-9N-BG1" secondAttribute="bottom" constant="16" id="KPO-7l-e5W"/>
+                            <constraint firstItem="v4Z-ep-iy3" firstAttribute="top" secondItem="QXm-2d-Yax" secondAttribute="bottom" constant="16" id="Ke5-ic-pOA"/>
+                            <constraint firstItem="MS2-cY-1gp" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="Nhx-XE-uNy"/>
+                            <constraint firstItem="Wte-1Z-9Wr" firstAttribute="trailing" secondItem="MS2-cY-1gp" secondAttribute="trailing" constant="20" id="P6J-fb-M6U"/>
+                            <constraint firstItem="QXm-2d-Yax" firstAttribute="top" secondItem="Wte-1Z-9Wr" secondAttribute="top" constant="16" id="Q0e-H6-v0l"/>
+                            <constraint firstItem="UFa-Ii-u8z" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="Ruk-Tw-dpF"/>
+                            <constraint firstItem="UFa-Ii-u8z" firstAttribute="top" secondItem="v4Z-ep-iy3" secondAttribute="bottom" constant="16" id="TNG-pp-8o0"/>
+                            <constraint firstItem="Wte-1Z-9Wr" firstAttribute="trailing" secondItem="v4Z-ep-iy3" secondAttribute="trailing" constant="20" id="TiI-CV-KUQ"/>
+                            <constraint firstItem="MS2-cY-1gp" firstAttribute="top" secondItem="63t-7s-yF7" secondAttribute="bottom" constant="16" id="YbV-ev-bqF"/>
+                            <constraint firstItem="Wte-1Z-9Wr" firstAttribute="trailing" secondItem="DtL-9N-BG1" secondAttribute="trailing" constant="20" id="Zl7-GP-VPp"/>
+                            <constraint firstItem="63t-7s-yF7" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="eVe-Nh-7H4"/>
+                            <constraint firstItem="63t-7s-yF7" firstAttribute="top" secondItem="UFa-Ii-u8z" secondAttribute="bottom" constant="16" id="fQl-Os-iFR"/>
+                            <constraint firstItem="DtL-9N-BG1" firstAttribute="top" secondItem="MS2-cY-1gp" secondAttribute="bottom" constant="16" id="fek-1W-Ejg"/>
+                            <constraint firstItem="Wte-1Z-9Wr" firstAttribute="trailing" secondItem="63t-7s-yF7" secondAttribute="trailing" constant="20" id="gbW-N1-nWY"/>
+                            <constraint firstItem="QXm-2d-Yax" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="lsG-Dc-6tN"/>
+                            <constraint firstItem="DtL-9N-BG1" firstAttribute="leading" secondItem="Wte-1Z-9Wr" secondAttribute="leading" constant="20" id="yM0-qh-2Zq"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="irM-zg-FKI" appends="YES" id="dvw-aM-R8b"/>
+                        </connections>
+                    </view>
+                    <navigationItem key="navigationItem" id="V47-Hb-gMe"/>
+                    <connections>
+                        <outlet property="bucketTextField" destination="v4Z-ep-iy3" id="AUp-S5-5Cu"/>
+                        <outlet property="contentTextView" destination="MS2-cY-1gp" id="Zww-No-fI5"/>
+                        <outlet property="keyTextField" destination="63t-7s-yF7" id="no8-RB-li7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="geN-PR-wGP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="irM-zg-FKI">
+                    <connections>
+                        <action selector="handleTap:" destination="9pr-PO-EMq" id="tVq-UQ-oEt"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2573.913043478261" y="1438.3928571428571"/>
         </scene>
         <!--Forgot Password View Controller-->
         <scene sceneID="V9G-h7-4WM">
