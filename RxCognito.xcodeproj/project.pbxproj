@@ -42,7 +42,6 @@
 		EEA7A42D25F62227009D419E /* SotoCognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = EEA7A42C25F62227009D419E /* SotoCognitoIdentityProvider */; };
 		EEA7A42F25F62227009D419E /* SotoS3 in Frameworks */ = {isa = PBXBuildFile; productRef = EEA7A42E25F62227009D419E /* SotoS3 */; };
 		OBJ_22 /* RxCognito.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* RxCognito.swift */; };
-		OBJ_29 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_40 /* RxCognitoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* RxCognitoTests.swift */; };
 		OBJ_41 /* XCTestManifests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* XCTestManifests.swift */; };
 		OBJ_43 /* RxCognito.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "RxCognito::RxCognito::Product" /* RxCognito.framework */; };
@@ -82,7 +81,6 @@
 		EEA7A41225F61285009D419E /* S3Uploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Uploader.swift; sourceTree = "<group>"; };
 		OBJ_12 /* RxCognitoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCognitoTests.swift; sourceTree = "<group>"; };
 		OBJ_13 /* XCTestManifests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestManifests.swift; sourceTree = "<group>"; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* RxCognito.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxCognito.swift; sourceTree = "<group>"; };
 		"RxCognito::RxCognito::Product" /* RxCognito.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RxCognito.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"RxCognito::RxCognitoTests::Product" /* RxCognitoTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = RxCognitoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +126,13 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		EE782EC528E43AC60045EAE2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		OBJ_10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,10 +163,10 @@
 		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
-				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_10 /* Tests */,
 				OBJ_14 /* Products */,
+				EE782EC528E43AC60045EAE2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -308,7 +313,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_29 /* Package.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,8 +364,12 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				TARGET_NAME = RxCognito;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -391,8 +399,12 @@
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited)";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				TARGET_NAME = RxCognito;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
@@ -595,7 +607,7 @@
 			repositoryURL = "https://github.com/adam-fowler/big-num";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.0;
+				minimumVersion = 2.0.1;
 			};
 		};
 		EE3AB29624FCDA3800886D42 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
@@ -603,7 +615,7 @@
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.1.1;
+				minimumVersion = 6.5.0;
 			};
 		};
 		EEA7A42925F62227009D419E /* XCRemoteSwiftPackageReference "soto" */ = {
@@ -611,7 +623,7 @@
 			repositoryURL = "https://github.com/soto-project/soto.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.3.0;
+				minimumVersion = 6.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

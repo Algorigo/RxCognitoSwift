@@ -31,12 +31,12 @@ extension PrimitiveSequence where Trait == SingleTrait {
         var element: Element? = nil
         var error: Error? = nil
         _ = self.timeout(dueTime, scheduler: ConcurrentDispatchQueueScheduler.init(qos: .background))
-            .observeOn(ConcurrentDispatchQueueScheduler.init(qos: .background))
-            .subscribe { (event) in
-                switch (event) {
+            .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .subscribe { event in
+                switch event {
                 case .success(let value):
                     element = value
-                case .error(let err):
+                case .failure(let err):
                     error = err
                 }
                 semaphore.signal()
@@ -58,7 +58,7 @@ extension PrimitiveSequence where Trait == MaybeTrait {
         var element: Element? = nil
         var error: Error? = nil
         _ = self.timeout(dueTime, scheduler: ConcurrentDispatchQueueScheduler.init(qos: .background))
-            .observeOn(ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
             .subscribe { (event) in
                 switch (event) {
                 case .success(let value):
